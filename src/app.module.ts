@@ -1,19 +1,27 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule,  } from './auth/auth.module';
-import { UserModule } from './user/user.module';
+import { AuthModule } from './feature/auth/auth.module';
+import { UserModule } from './feature/user/user.module';
 import { PrismaModule } from './core/db/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { DearLinkJwtModule } from './common/jwt/dear-link.jwt.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    DearLinkJwtModule,
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1d' },
+    }),
     PrismaModule,
-    AuthModule, 
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
