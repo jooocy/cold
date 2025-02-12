@@ -15,6 +15,67 @@ datasource db {
 
 model User {
   id    Int     @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  nickname  String
+  profileImageUrl String?
+
   email String  @unique
-  name  String?
+  isEmailVerified Boolean @default(false)
+  phoneNumber String?
+  phoneNumberVerified Boolean @default(false)
+
+  linkUsers LinkUser[]
+}
+
+model LinkUser {
+  userId Int
+  linkId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  nickname String
+  role String
+  profileImageUrl String?
+
+  user User @relation(fields: [userId], references: [id])
+  link Link @relation(fields: [linkId], references: [id])
+
+  @@id([userId, linkId])
+}
+
+model Link {
+  id    Int     @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+  password String?
+  description String?
+  coverImageUrl String?
+
+  linkUsers LinkUser[]
+  linkCategories LinkCategory[]
+}
+
+model LinkCategory {
+  linkId Int
+  categoryId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  link Link @relation(fields: [linkId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@id([linkId, categoryId])
+}
+
+model Category {
+  id    Int     @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+  linkCategories LinkCategory[]
 }
