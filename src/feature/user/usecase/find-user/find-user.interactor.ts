@@ -11,7 +11,7 @@ export class FindUserInteractor implements FindUserUsecase {
   ) {}
 
   async findById(id: number): Promise<UserEntity> {
-    const user = await this.userGateway.findById(id);
+    const user = await this.userGateway.findByIdOrNull(id);
     if (!user) {
       throw new NotFoundException("User not found, id: " + id);
     }
@@ -23,7 +23,7 @@ export class FindUserInteractor implements FindUserUsecase {
   }
 
   async findByEmail(email: string): Promise<UserEntity> {
-    const user = await this.userGateway.findByEmail(email);
+    const user = await this.userGateway.findByEmailOrNull(email);
     if (!user) {
       throw new NotFoundException("User not found, email: " + email);
     }
@@ -32,6 +32,6 @@ export class FindUserInteractor implements FindUserUsecase {
   }
 
   async findByEmailOrNull(email: string): Promise<UserEntity | null> {
-    return await this.findByEmail(email);
+    return await this.userGateway.findByEmailOrNull(email);
   }
 }

@@ -21,13 +21,15 @@ export class UserDsMapper implements UserGateway {
     return createdUser;
   }
 
-  async findById(id: number): Promise<UserEntity | null> {
-    return await this.prisma.user.findUnique({
+  async findByIdOrNull(id: number): Promise<UserEntity | null> {
+    const user = await this.prisma.user.findUnique({
       where: { id },
     });
+
+    return user
   }
 
-  async findByEmail(email: string): Promise<UserEntity | null> {
+  async findByEmailOrNull(email: string): Promise<UserEntity | null> {
     return await this.prisma.user.findUnique({
       where: { email },
     });

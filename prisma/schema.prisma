@@ -25,7 +25,7 @@ model User {
   email String  @unique
   isEmailVerified Boolean @default(false)
   phoneNumber String?
-  phoneNumberVerified Boolean @default(false)
+  isPhoneNumberVerified Boolean @default(false)
 
   linkUsers LinkUser[]
 }

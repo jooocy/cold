@@ -3,8 +3,8 @@ import { CreateUserGatewayDto } from "./dto/create-user.gateway.dto";
 
 export interface UserGateway {
   create(input: CreateUserGatewayDto): Promise<UserEntity>;
-  findById(id: number): Promise<UserEntity>;
-  findByEmail(email: string): Promise<UserEntity>;
+  findByIdOrNull(id: number): Promise<UserEntity | null>;
+  findByEmailOrNull(email: string): Promise<UserEntity | null>;
 
   updateLastSignedInAt(id: number): Promise<UserEntity>;
   updateProfileImageUrl(id: number, profileImageUrl: string): Promise<UserEntity>;

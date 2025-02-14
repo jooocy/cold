@@ -7,7 +7,7 @@ export class UserEntity {
   email: string;
   isEmailVerified: boolean;
   nickname: string;
-  profileImageUrl?: string;
-  phoneNumber?: string;
-  isPhoneNumberVerified?: boolean;
+  profileImageUrl?: string | null;
+  phoneNumber?: string | null;
+  isPhoneNumberVerified: boolean;
 }

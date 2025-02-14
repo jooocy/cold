@@ -22,9 +22,9 @@ export class CreateUserInteractor implements CreateUserUsecase {
       nickname: input.nickname,
       profileImageUrl: input.profileImageUrl,
       email: input.email,
-      isEmailVerified: input.isEmailVerified,
+      isEmailVerified: input.isEmailVerified ?? false,
       phoneNumber: input.phoneNumber,
-      isPhoneNumberVerified: input.isPhoneNumberVerified,
+      isPhoneNumberVerified: input.isPhoneNumberVerified ?? false,
     };
   }
 }

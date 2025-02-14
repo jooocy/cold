@@ -26,7 +26,7 @@ export class AuthInteractor implements AuthUsecase {
     if (!user) {
       user = await this.createUserUsecase.execute({
         email: googleUser.email,
-        nickname: googleUser.lastName,
+        nickname: googleUser.firstName ?? 'link user',
         profileImageUrl: googleUser.picture,
         isEmailVerified: true
       });

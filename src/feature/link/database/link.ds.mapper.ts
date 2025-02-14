@@ -14,8 +14,10 @@ export class LinkDsMapper implements LinkGateway{
   }
 
   async create(input: CreateLinkGatewayDto): Promise<LinkEntity>{
-    return await this.linkRepository.create({
+    const createdLink = await this.linkRepository.create({
       data: input
     })
+
+    return createdLink;
   }
 }

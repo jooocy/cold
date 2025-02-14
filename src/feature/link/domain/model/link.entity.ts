@@ -4,7 +4,7 @@ export class LinkEntity {
   updatedAt: Date
 
   name: string
-  description?: string
-  password?: string
-  coverImageUrl?: string
+  description?: string | null
+  password?: string | null
+  coverImageUrl?: string | null
 }
