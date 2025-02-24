@@ -2,7 +2,7 @@ import { Controller, Get, Inject, Req, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { AuthUsecase } from "../usecase/auth.usecase";
 
-@Controller('oauth')
+@Controller('auth')
 export class AuthController {
   constructor(
     @Inject(AuthUsecase)
