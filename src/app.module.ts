@@ -7,7 +7,7 @@ import { PrismaModule } from './core/db/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { DearLinkJwtModule } from './common/jwt/dear-link.jwt.module';
 import { JwtModule } from '@nestjs/jwt';
-
+import { LinkUsersModule } from './feature/link-user/link-users.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,6 +22,7 @@ import { JwtModule } from '@nestjs/jwt';
     PrismaModule,
     UserModule,
     AuthModule,
+    LinkUsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
