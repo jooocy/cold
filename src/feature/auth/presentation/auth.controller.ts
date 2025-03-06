@@ -1,6 +1,7 @@
-import { Controller, Get, Inject, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Inject, Post, Req, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { AuthUsecase } from "../usecase/auth.usecase";
+import { TokenResponse } from "src/common/response";
 
 @Controller('auth')
 export class AuthController {
@@ -25,5 +26,10 @@ export class AuthController {
       accessToken,
       refreshToken,
     };
+  }
+
+  @Post('google/validate')
+  async validateGoogleToken(@Body() body: { googleAccessToken: string }): Promise<TokenResponse> {
+    return await this.authUsecase.validateGoogleAccessToken(body.googleAccessToken);
   }
 }

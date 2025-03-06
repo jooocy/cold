@@ -3,6 +3,7 @@ import { CreateUserGatewayDto } from "./dto/create-user.gateway.dto";
 
 export interface UserGateway {
   create(input: CreateUserGatewayDto): Promise<UserEntity>;
+  createWithOAuth(input: CreateUserGatewayDto): Promise<UserEntity>;
   findByIdOrNull(id: number): Promise<UserEntity | null>;
   findByEmailOrNull(email: string): Promise<UserEntity | null>;
 

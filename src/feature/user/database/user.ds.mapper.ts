@@ -3,7 +3,7 @@ import { PrismaService } from "src/core/db/prisma.service";
 import { UserEntity } from "../domain/model/user.entity";
 import { UserGateway } from "../domain/gateway/user.gateway";
 import { PrismaClient } from "@prisma/client";
-import { CreateUserGatewayDto } from "../domain/gateway/dto/create-user.gateway.dto";
+import { CreateUserGatewayDto, CreateUserWithOAuthGatewayDto } from "../domain/gateway/dto/create-user.gateway.dto";
 
 @Injectable()
 export class UserDsMapper implements UserGateway {
@@ -13,12 +13,15 @@ export class UserDsMapper implements UserGateway {
     this.userRepository = prisma.user
   }
 
+  private toEntity(user: any): UserEntity {
+    return Object.assign(new UserEntity(), user);
+  }
+
   async create(input: CreateUserGatewayDto): Promise<UserEntity> {
     const createdUser = await this.userRepository.create({
       data: input,
     });
-
-    return createdUser;
+    return this.toEntity(createdUser);
   }
 
   async findByIdOrNull(id: number): Promise<UserEntity | null> {
@@ -26,13 +29,23 @@ export class UserDsMapper implements UserGateway {
       where: { id },
     });
 
-    return user
+    if (!user) {
+      return null;
+    }
+
+    return this.toEntity(user);
   }
 
   async findByEmailOrNull(email: string): Promise<UserEntity | null> {
-    return await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { email },
     });
+
+    if (!user) {
+      return null;
+    }
+
+    return this.toEntity(user);
   }
 
   async updateLastSignedInAt(id: number): Promise<UserEntity> {
@@ -40,8 +53,7 @@ export class UserDsMapper implements UserGateway {
       where: { id },
       data: { lastSignedInAt: new Date() },
     });
-
-    return updatedUser;
+    return this.toEntity(updatedUser);
   }
 
   async updateProfileImageUrl(id: number, profileImageUrl: string): Promise<UserEntity> {
@@ -49,7 +61,23 @@ export class UserDsMapper implements UserGateway {
       where: { id },
       data: { profileImageUrl },
     });
+    return this.toEntity(updatedUser);
+  }
 
-    return updatedUser;
+  async createWithOAuth(input: CreateUserWithOAuthGatewayDto): Promise<UserEntity> {
+    const createdUser = await this.userRepository.create({
+      data: {
+        ...input,
+        oauths: {
+          create: input.oauths.map(oauth => ({
+            provider: oauth.provider,
+            accessToken: oauth.accessToken,
+            refreshToken: oauth.refreshToken,
+            expiresAt: oauth.expiresAt,
+          })),
+        },
+      },
+    });
+    return this.toEntity(createdUser);
   }
 }

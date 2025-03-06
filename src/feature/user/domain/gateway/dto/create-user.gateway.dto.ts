@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsString, IsNotEmpty, IsOptional, IsEmail, IsBoolean } from "class-validator";
+import { IsString, IsNotEmpty, IsOptional, IsEmail, IsBoolean, ValidateNested, IsArray } from "class-validator";
 
 export class CreateUserGatewayDto {
   @Type(() => Date)
@@ -29,4 +29,29 @@ export class CreateUserGatewayDto {
   @IsBoolean()
   @IsOptional()
   isPhoneNumberVerified?: boolean;
+}
+
+export class CreateUserWithOAuthGatewayDto extends CreateUserGatewayDto {
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateOAuthDto)
+  oauths: CreateOAuthDto[];
+}
+
+export class CreateOAuthDto {
+  @IsString()
+  @IsNotEmpty()
+  provider: string;
+  
+  @IsString()
+  @IsNotEmpty()
+  accessToken: string;
+
+  @IsString()
+  @IsNotEmpty()
+  refreshToken: string;
+
+  @Type(() => Date)
+  @IsNotEmpty()
+  expiresAt: Date;
 }

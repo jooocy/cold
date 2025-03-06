@@ -28,6 +28,22 @@ model User {
   isPhoneNumberVerified Boolean @default(false)
 
   linkUsers LinkUser[]
+  oauths UserOAuth[]
+}
+
+model UserOAuth {
+  userId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  provider String
+  accessToken String
+  refreshToken String
+  expiresAt DateTime
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@id([userId, provider])
 }
 
 model LinkUser {
