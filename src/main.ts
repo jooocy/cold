@@ -12,7 +12,7 @@ async function bootstrap() {
       'https://customwidgethosting.web.app',
       'http://localhost:3000',  // 로컬 개발용
       'http://localhost:51372',
-      'http://localhost:61461',
+      'http://localhost:64078',
       'http://localhost:8080',
       'http://localhost',
       'http://127.0.0.1',

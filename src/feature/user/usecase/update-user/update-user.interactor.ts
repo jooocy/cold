@@ -1,7 +1,8 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { UserGateway } from "../../domain/gateway/user.gateway";
-import { UpdateUserUsecase } from "./update-user.usecase";
+import { UpdateUserUsecase, UpdateUserOAuthUsecase } from "./update-user.usecase";
 import { UserEntity } from "../../domain/model/user.entity";
+import { UserOAuthEntity } from "../../domain/model/user-oauth.entity";
 
 @Injectable()
 export class UpdateUserInteractor implements UpdateUserUsecase {
@@ -16,5 +17,9 @@ export class UpdateUserInteractor implements UpdateUserUsecase {
 
   async updateProfileImageUrl(id: number, profileImageUrl: string): Promise<UserEntity> {
     return this.userGateway.updateProfileImageUrl(id, profileImageUrl);
+  }
+
+  async updateUserOAuth(input: UpdateUserOAuthUsecase): Promise<UserOAuthEntity> {
+    return this.userGateway.updateOAuth(input);
   }
 }

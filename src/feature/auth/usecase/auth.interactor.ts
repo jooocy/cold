@@ -90,7 +90,17 @@ export class AuthInteractor implements AuthUsecase {
             expiresAt: new Date(Date.now() + 3600 * 1000),
           }]
         });
+      } else {
+        await this.updateUserUsecase.updateUserOAuth({
+          userId: user.id,
+          provider: OAuthProvider.GOOGLE,
+          accessToken: googleAccessToken,
+          refreshToken: '',
+          expiresAt: new Date(Date.now() + 3600 * 1000),
+        });
       }
+
+      await this.updateUserUsecase.updateLastSignedInAt(user.id);
 
       // JWT 토큰 발급
       const [accessToken, refreshToken] = await Promise.all([
