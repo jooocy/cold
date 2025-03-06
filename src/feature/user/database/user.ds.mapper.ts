@@ -25,7 +25,7 @@ export class UserDsMapper implements UserGateway {
   }
 
   async findByIdOrNull(id: number): Promise<UserEntity | null> {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.userRepository.findUnique({
       where: { id },
     });
 
@@ -36,8 +36,23 @@ export class UserDsMapper implements UserGateway {
     return this.toEntity(user);
   }
 
+  async findByIdWithOAuthsOrNull(id: number): Promise<UserEntity | null> {
+    const user = await this.userRepository.findUnique({
+      where: { id },
+      include: {
+        oauths: true,
+      },  
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return this.toEntity(user);
+  }
+
   async findByEmailOrNull(email: string): Promise<UserEntity | null> {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.userRepository.findUnique({
       where: { email },
     });
 

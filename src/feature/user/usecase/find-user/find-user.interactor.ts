@@ -22,6 +22,10 @@ export class FindUserInteractor implements FindUserUsecase {
     return await this.findById(id);
   }
 
+  async findByIdWithOAuthsOrNull(id: number): Promise<UserEntity | null> {
+    return await this.userGateway.findByIdWithOAuthsOrNull(id);
+  }
+
   async findByEmail(email: string): Promise<UserEntity> {
     const user = await this.userGateway.findByEmailOrNull(email);
     if (!user) {

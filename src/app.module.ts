@@ -8,6 +8,8 @@ import { ConfigModule } from '@nestjs/config';
 import { DearLinkJwtModule } from './common/jwt/dear-link.jwt.module';
 import { JwtModule } from '@nestjs/jwt';
 import { LinkUsersModule } from './feature/link-user/link-users.module';
+import { GoogleModule } from './feature/google/google.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -23,6 +25,7 @@ import { LinkUsersModule } from './feature/link-user/link-users.module';
     UserModule,
     AuthModule,
     LinkUsersModule,
+    GoogleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
