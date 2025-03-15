@@ -3,6 +3,7 @@
     "autoincrement",
     "Interactor",
     "oauths",
+    "qnas",
     "Usecase"
   ]
 }

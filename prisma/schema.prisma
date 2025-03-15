@@ -29,6 +29,8 @@ model User {
 
   linkUsers LinkUser[]
   oauths UserOAuth[]
+  answers Answer[]
+  questions Question[]
 }
 
 model UserOAuth {
@@ -74,6 +76,7 @@ model Link {
 
   linkUsers LinkUser[]
   linkCategories LinkCategory[]
+  questions Question[]
 }
 
 model LinkCategory {
@@ -95,4 +98,33 @@ model Category {
 
   name String
   linkCategories LinkCategory[]
+}
+
+model Question {
+  id    Int     @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  content String
+  isResolved Boolean @default(false)
+  authorId Int?
+  author User? @relation(fields: [authorId], references: [id])
+
+  linkId Int
+  link Link @relation(fields: [linkId], references: [id])
+
+  answers Answer[]
+}
+
+model Answer {
+  id    Int     @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  content String
+  questionId Int
+  question Question @relation(fields: [questionId], references: [id])
+
+  userId Int
+  user User @relation(fields: [userId], references: [id])
 }

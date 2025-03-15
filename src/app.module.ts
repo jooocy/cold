@@ -9,6 +9,8 @@ import { DearLinkJwtModule } from './common/jwt/dear-link.jwt.module';
 import { JwtModule } from '@nestjs/jwt';
 import { LinkUsersModule } from './feature/link-user/link-users.module';
 import { GoogleModule } from './feature/google/google.module';
+import { QnaModule } from './feature/qna/qna.module';
+import { OpenAiModule } from './feature/open-ai/open-ai.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { GoogleModule } from './feature/google/google.module';
     AuthModule,
     LinkUsersModule,
     GoogleModule,
+    QnaModule,
+    OpenAiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

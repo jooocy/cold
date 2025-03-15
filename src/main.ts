@@ -10,9 +10,11 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'https://customwidgethosting.web.app',
+      'https://ff-debug-service-frontend-pro-ygxkweukma-uc.a.run.app',
       'http://localhost:3000',  // 로컬 개발용
-      'http://localhost:51372',
-      'http://localhost:64078',
+      'http://localhost:53265',
+      'http://localhost:49468',
+      'http://localhost:64400',
       'http://localhost:8080',
       'http://localhost',
       'http://127.0.0.1',
