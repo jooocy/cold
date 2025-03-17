@@ -19,4 +19,13 @@ export class OpenAiService {
 
     return completion.choices[0].message.content;
   }
+
+  async generateQuestion(): Promise<string | null> {
+    const randomQuestion = await this.openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: "가족에 대한 질문을 하나 생성해줘" }],
+    });
+
+    return randomQuestion.choices[0].message.content;
+  }
 }

@@ -49,8 +49,8 @@ model UserOAuth {
 }
 
 model LinkUser {
-  userId Int
   linkId Int
+  userId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -61,7 +61,7 @@ model LinkUser {
   user User @relation(fields: [userId], references: [id])
   link Link @relation(fields: [linkId], references: [id])
 
-  @@id([userId, linkId])
+  @@id([linkId, userId])
 }
 
 model Link {

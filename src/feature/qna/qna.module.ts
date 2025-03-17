@@ -9,8 +9,13 @@ import { FindQuestionInteractor } from "./usecase/find-question/find-question.in
 import { FindAnswerUsecase } from "./usecase/find-answer/find-answer.usecase";
 import { FindAnswerInteractor } from "./usecase/find-answer/find-answer.interactor";
 import { PrismaModule } from "src/core/db/prisma.module";
+import { LinkModule } from "../link/link.module";
+import { OpenAiModule } from "../open-ai/open-ai.module";
+import { CreateQuestionUsecase } from "./usecase/create-question/create-question.usecase";
+import { CreateQuestionInteractor } from "./usecase/create-question/create-question.interactor";
+
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, LinkModule, OpenAiModule],
   controllers: [QnaController],
   providers: [
     {
@@ -28,6 +33,10 @@ import { PrismaModule } from "src/core/db/prisma.module";
     {
       provide: FindAnswerUsecase,
       useClass: FindAnswerInteractor,
+    },
+    {
+      provide: CreateQuestionUsecase,
+      useClass: CreateQuestionInteractor,
     },
   ],
 })

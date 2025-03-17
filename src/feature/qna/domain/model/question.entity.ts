@@ -13,7 +13,7 @@ export class QuestionEntity implements Question{
   answers?: AnswerEntity[];
   isResolved: boolean;
   linkId: number;
-  
+
   resolve() {
     this.isResolved = true;
   }

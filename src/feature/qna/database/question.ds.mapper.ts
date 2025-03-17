@@ -1,9 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { QuestionGateway } from "../domain/gateway/question.gateway";
 import { QuestionEntity } from "../domain/model/question.entity";
-import { PrismaClient, Question, Answer } from "@prisma/client";
+import { PrismaClient, Question, Answer, Link } from "@prisma/client";
 import { PrismaService } from "src/core/db/prisma.service";
 import { AnswerEntity } from "../domain/model/answer.entity";
+import { LinkEntity } from "src/feature/link/domain/model/link.entity";
+import { CreateQuestionGatewayDto } from "../domain/gateway/dtos/create-question.gateway.dto";
 
 @Injectable()
 export class QuestionDsMapper implements QuestionGateway {
@@ -13,7 +15,7 @@ export class QuestionDsMapper implements QuestionGateway {
     this.questionRepository = prisma.question;
   }
 
-  private toEntity(question: Question & { answers?: Answer[] }): QuestionEntity {
+  private toEntity(question: Question & { answers?: Answer[]}): QuestionEntity {
     return new QuestionEntity({
       id: question.id,
       content: question.content,
@@ -33,10 +35,22 @@ export class QuestionDsMapper implements QuestionGateway {
     });
   }
 
+  async create(input: CreateQuestionGatewayDto): Promise<QuestionEntity> {
+    const { authorId, linkId, content } = input;
+    const createdQuestion = await this.questionRepository.create({
+      data: {
+        content,
+        authorId,
+        linkId,
+      },
+    });
+    return this.toEntity(createdQuestion);
+  }
+
   async findManyByLinkId(linkId: number): Promise<QuestionEntity[]> {
     const questions = await this.prisma.question.findMany({
       where: { linkId },
-      include: { answers: true },
+      include: { answers: true, link: true },
     });
 
     return questions.map(question => this.toEntity(question));
@@ -45,6 +59,7 @@ export class QuestionDsMapper implements QuestionGateway {
   async findByIdOrNull(id: number): Promise<QuestionEntity | null> {
     const question = await this.questionRepository.findUnique({
       where: { id },
+      include: { link: true },
     });
 
     if (!question) {

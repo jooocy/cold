@@ -20,4 +20,11 @@ export class LinkDsMapper implements LinkGateway{
 
     return createdLink;
   }
+
+  async findByIdOrNull(id: number): Promise<LinkEntity | null> {
+    const link = await this.linkRepository.findUnique({
+      where: { id },
+    });
+    return link ? LinkEntity.from(link) : null;
+  }
 }

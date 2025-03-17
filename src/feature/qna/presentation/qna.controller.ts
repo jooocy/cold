@@ -1,8 +1,44 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Post, Body, Inject, UseGuards, Param } from "@nestjs/common";
+import { CreateQuestionUsecase } from "../usecase/create-question/create-question.usecase";
+import { CreateQuestionGatewayDto } from "../domain/gateway/dtos/create-question.gateway.dto";
+import { CurrentUser } from "src/feature/user/decorator/current-user.decorator";
+import { JwtAuthGuard } from "src/common/jwt/jwt-guard";
+import { FindQuestionUsecase } from "../usecase/find-question/find-question.usecase";
 
-@Controller('qnas')
+@Controller('links/:linkId/qna')
 export class QnaController {
+  constructor(
+    @Inject(CreateQuestionUsecase)
+    private readonly createQuestionUsecase: CreateQuestionUsecase,
+    @Inject(FindQuestionUsecase)
+    private readonly findQuestionUsecase: FindQuestionUsecase,
+  ) {}
+
+  @UseGuards(JwtAuthGuard)
+  @Post()
+  async createQuestion(
+    @Param('linkId') linkId: number,
+    @CurrentUser() user: CurrentUser
+  ) {
+    const question = await this.createQuestionUsecase.execute(linkId, user.id);
+    return {
+      data: question,
+    };
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get()
+  async questionsWithAnswers(
+    @Param('linkId') linkId: number,
+    @CurrentUser() user: CurrentUser
+  ) {
+    const questions = await this.findQuestionUsecase.executeManyWithAnswersByLinkId(linkId, user.id);
+    return {
+      data: questions,
+    };
+  }
+
+  @Get('dummy')
   async dummyQuestions() {
     return {
       data: [
@@ -40,6 +76,6 @@ export class QnaController {
         ],
       },
     ],
-  };
+  };  
   }
 }

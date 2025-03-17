@@ -7,7 +7,6 @@ import { PrismaModule } from './core/db/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { DearLinkJwtModule } from './common/jwt/dear-link.jwt.module';
 import { JwtModule } from '@nestjs/jwt';
-import { LinkUsersModule } from './feature/link-user/link-users.module';
 import { GoogleModule } from './feature/google/google.module';
 import { QnaModule } from './feature/qna/qna.module';
 import { OpenAiModule } from './feature/open-ai/open-ai.module';
@@ -26,7 +25,6 @@ import { OpenAiModule } from './feature/open-ai/open-ai.module';
     PrismaModule,
     UserModule,
     AuthModule,
-    LinkUsersModule,
     GoogleModule,
     QnaModule,
     OpenAiModule,

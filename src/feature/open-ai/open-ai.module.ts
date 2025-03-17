@@ -6,5 +6,6 @@ import { Module } from "@nestjs/common";
   imports: [],
   controllers: [OpenAiController],
   providers: [OpenAiService],
+  exports: [OpenAiService],
 })
 export class OpenAiModule {}
