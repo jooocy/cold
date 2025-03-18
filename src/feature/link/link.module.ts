@@ -8,6 +8,8 @@ import { LinkUserGateway } from "./domain/gateway/link-user.gateway";
 import { LinkUserDsMapper } from "./database/link-user.ds.mapper";
 import { VerifyLinkUserUsecase } from "./usecase/verify-link-user/verify-link-user.usecase";
 import { VerifyLinkUserInteractor } from "./usecase/verify-link-user/verify-link-user.interactor";
+import { CreateLinkUsecase } from "./usecase/create-link/create-link.usecase";
+import { CreateLinkInteractor } from "./usecase/create-link/create-link.interactor";
 
 @Module({
   imports: [PrismaModule],
@@ -24,6 +26,10 @@ import { VerifyLinkUserInteractor } from "./usecase/verify-link-user/verify-link
     {
       provide: VerifyLinkUserUsecase,
       useClass: VerifyLinkUserInteractor,
+    },
+    {
+      provide: CreateLinkUsecase,
+      useClass: CreateLinkInteractor,
     },
   ],
   exports: [VerifyLinkUserUsecase],

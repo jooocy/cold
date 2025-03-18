@@ -18,4 +18,12 @@ export class CreateLinkGatewayDto {
   @IsOptional()
   @IsUrl()
   coverImageUrl?: string
+
+  @IsNumber()
+  @IsNotEmpty()
+  userId: number
+
+  @IsString()
+  @IsNotEmpty()
+  nickname: string
 }

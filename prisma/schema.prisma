@@ -18,6 +18,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   lastSignedInAt DateTime
+  lastActiveLinkId Int?
+  lastActiveLink Link? @relation(fields: [lastActiveLinkId], references: [id])
 
   nickname  String
   profileImageUrl String?
@@ -75,6 +77,7 @@ model Link {
   coverImageUrl String?
 
   linkUsers LinkUser[]
+  lastActiveUsers User[]
   linkCategories LinkCategory[]
   questions Question[]
 }

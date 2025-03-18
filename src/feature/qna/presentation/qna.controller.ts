@@ -5,7 +5,7 @@ import { CurrentUser } from "src/feature/user/decorator/current-user.decorator";
 import { JwtAuthGuard } from "src/common/jwt/jwt-guard";
 import { FindQuestionUsecase } from "../usecase/find-question/find-question.usecase";
 
-@Controller('links/:linkId/qna')
+@Controller('links/:linkId/qnas')
 export class QnaController {
   constructor(
     @Inject(CreateQuestionUsecase)

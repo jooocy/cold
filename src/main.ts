@@ -12,7 +12,7 @@ async function bootstrap() {
       'https://customwidgethosting.web.app',
       'https://ff-debug-service-frontend-pro-ygxkweukma-uc.a.run.app',
       'http://localhost:3000',  // 로컬 개발용
-      'http://localhost:58032',
+      'http://localhost:57696',
       'http://localhost:49468',
       'http://localhost:64400',
       'http://localhost:8080',
