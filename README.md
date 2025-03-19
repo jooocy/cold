@@ -1,5 +1,7 @@
 # 👨‍👩‍👧‍👦 FamilyHub
+![가족고래-001](https://github.com/user-attachments/assets/bba4d8e7-d27c-4110-ae3b-51e0ea10e35a)
 Connecting families through memories and conversations.
+
 
 ## 🌟 Features
 - 🗓️ Event Reminders
