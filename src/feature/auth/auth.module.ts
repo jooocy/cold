@@ -4,6 +4,7 @@ import { AuthUsecase } from './usecase/auth.usecase';
 import { AuthInteractor } from './usecase/auth.interactor';
 import { UserModule } from 'src/feature/user/user.module';
 import { GoogleStrategy } from './google/google.strategy';
+import { AuthTestService } from './usecase/auth-test.service';
 
 @Module({
 imports: [UserModule],
@@ -14,6 +15,7 @@ imports: [UserModule],
       provide: AuthUsecase,
       useClass: AuthInteractor,
     },
+    AuthTestService,
   ],
 })
 export class AuthModule {}

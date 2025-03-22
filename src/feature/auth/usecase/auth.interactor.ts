@@ -5,7 +5,7 @@ import { GoogleUser } from "../google/google-user";
 import { CreateUserUsecase } from "src/feature/user/usecase/create-user/create-user.usecase";
 import { FindUserUsecase } from "src/feature/user/usecase/find-user/find-user.usecase";
 import { DearLinkJwtUsecase } from "src/common/jwt/usecase/dear-link.jwt.usecase";
-import { Role } from "src/common/role/role";
+import { Role } from "src/common/interface/interfaces/role";
 import { UpdateUserUsecase } from "src/feature/user/usecase/update-user/update-user.usecase";
 import { OAuthProvider } from "src/feature/user/domain/model/user-oauth.entity";
 
@@ -50,10 +50,8 @@ export class AuthInteractor implements AuthUsecase {
     ]);
     
     return {
-      data: {
-        accessToken,
-        refreshToken,
-      },
+      accessToken,
+      refreshToken,
     };
   }
 
@@ -116,10 +114,8 @@ export class AuthInteractor implements AuthUsecase {
       ]);
       
       return {
-        data: {
-          accessToken,
-          refreshToken,
-        },
+        accessToken,
+        refreshToken,
       };
     } catch (error) {
       console.error(error);

@@ -8,9 +8,12 @@ import { PrismaModule } from 'src/core/db/prisma.module';
 import { UserDsMapper } from './database/user.ds.mapper';
 import { UpdateUserInteractor } from './usecase/update-user/update-user.interactor';
 import { UpdateUserUsecase } from './usecase/update-user/update-user.usecase';
+import { UsersController } from './presentation/controller/users.controller';
+import { AuthTestService } from 'src/feature/auth/usecase/auth-test.service';
 
 @Module({
   imports: [PrismaModule],
+  controllers: [UsersController],
   providers: [
     {
       provide: UserGateway,
@@ -28,6 +31,7 @@ import { UpdateUserUsecase } from './usecase/update-user/update-user.usecase';
       provide: UpdateUserUsecase,
       useClass: UpdateUserInteractor,
     },
+    AuthTestService,
   ],
   exports: [CreateUserUsecase, FindUserUsecase, UpdateUserUsecase],
 })

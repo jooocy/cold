@@ -1,9 +1,6 @@
 export interface TokenResponse {
-  data: {
-    accessToken: string;
-    refreshToken: string;
-  };
-  error?: ErrorResponse;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface ErrorResponse {

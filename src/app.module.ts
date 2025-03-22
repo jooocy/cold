@@ -10,6 +10,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { GoogleModule } from './feature/google/google.module';
 import { QnaModule } from './feature/qna/qna.module';
 import { OpenAiModule } from './feature/open-ai/open-ai.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ResponseInterceptor } from './common/interface/interceptors/response.interceptor';
 
 @Module({
   imports: [
@@ -30,6 +32,12 @@ import { OpenAiModule } from './feature/open-ai/open-ai.module';
     OpenAiModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ResponseInterceptor,
+    },
+  ],
 })
 export class AppModule {}

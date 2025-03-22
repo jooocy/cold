@@ -1,6 +1,5 @@
 import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { VerifyLinkUserUsecase } from "./verify-link-user.usecase";
-import { LinkGateway } from "../../domain/gateway/link.gateway";
 import { LinkUserGateway } from "../../domain/gateway/link-user.gateway";
 
 @Injectable()

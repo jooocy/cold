@@ -28,6 +28,7 @@ model User {
   isEmailVerified Boolean @default(false)
   phoneNumber String?
   isPhoneNumberVerified Boolean @default(false)
+  hasLink Boolean @default(false)
 
   linkUsers LinkUser[]
   oauths UserOAuth[]

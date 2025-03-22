@@ -1,4 +1,4 @@
-import { Role } from "src/common/role/role";
+import { Role } from "src/common/interface/interfaces/role";
 
 export interface DearLinkAccessTokenRequest {
   id: number;

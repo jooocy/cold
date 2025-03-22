@@ -29,6 +29,10 @@ export class CreateUserGatewayDto {
   @IsBoolean()
   @IsOptional()
   isPhoneNumberVerified?: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  hasLink?: boolean;
 }
 
 export class CreateUserWithOAuthGatewayDto extends CreateUserGatewayDto {

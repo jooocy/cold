@@ -12,6 +12,7 @@ export class UserEntity {
   profileImageUrl?: string | null;
   phoneNumber?: string | null;
   isPhoneNumberVerified: boolean;
+  hasLink: boolean;
 
   oauths?: UserOAuthEntity[];
 
